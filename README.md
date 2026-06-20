@@ -2,14 +2,16 @@
 
 A very lightweight, fast, and modern single-page catalog and ordering system for Coffee Shops. This project is built purely using **HTML5**, **Tailwind CSS**, and **Vanilla JavaScript**. It integrates directly with WhatsApp for the checkout process.
 
-<p align="center">
-  <img src="demo-landing.png" alt="Landing View" width="49%"/>
-  &nbsp;
-  <img src="demo-catalog.png" alt="Catalog View" width="49%"/>
-</p>
+### 📸 App Previews
+
+**1. Landing View**  
+<img src="https://kurumi.id/uploads/krm_1781934164_9b9caaa83e.png" alt="Catalog View" width="700"/>
+
+**2. Catalog & Menu View**  
+<img src="https://kurumi.id/uploads/krm_1781934024_d4a0e73969.png" alt="Catalog View" width="700"/>
 
 ## 🚀 Key Features
-- **Modern & Responsive Design**: Utilizes Tailwind CSS with elegant visual effects (Glassmorphism, scroll animations, glowing particles).
+- **Modern & Responsive Design**: Utilizes Tailwind CSS with elegant visual effects (Glassmorphism, scroll animations, glowing particles)a.
 - **Dynamic Catalog**: Product and category data are stored in a single `config.js` file, making it extremely easy for beginners to manage.
 - **Instant Cart System**: Users can add, remove, and view total orders before checking out directly on the same page.
 - **WhatsApp Checkout**: The order list is automatically calculated and sent to the admin's WhatsApp number in a neatly formatted text.
