@@ -1,0 +1,457 @@
+<?php require_once 'config.php'; ?>
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomoro Coffee — 50% Lebih Murah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-up': 'fade-up 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
+                        'fade-in': 'fade-in 1s ease forwards',
+                        'marquee': 'marquee 30s linear infinite',
+                        'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
+                        'float-a': 'float-a 8s ease-in-out infinite',
+                        'float-b': 'float-b 10s ease-in-out 1s infinite',
+                        'float-c': 'float-c 7s ease-in-out 0.5s infinite',
+                        'float-d': 'float-d 9s ease-in-out 2s infinite',
+                        'float-e': 'float-e 11s ease-in-out 0.8s infinite',
+                        'float-f': 'float-f 12s ease-in-out 1.5s infinite',
+                        'spin-slow': 'spin-slow 25s linear infinite',
+                    },
+                    keyframes: {
+                        'fade-up': { '0%': { opacity: 0, transform: 'translateY(30px)', filter: 'blur(8px)' }, '100%': { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' } },
+                        'fade-in': { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+                        'marquee': { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                        'pulse-slow': { '0%, 100%': { opacity: 0.4, transform: 'scale(1)' }, '50%': { opacity: 0.7, transform: 'scale(1.05)' } },
+                        'float-a': { '0%, 100%': { transform: 'translate(0, 0) rotate(-6deg)' }, '33%': { transform: 'translate(12px, -18px) rotate(-3deg)' }, '66%': { transform: 'translate(-8px, -8px) rotate(-8deg)' } },
+                        'float-b': { '0%, 100%': { transform: 'translate(0, 0) rotate(10deg)' }, '50%': { transform: 'translate(-15px, -22px) rotate(14deg)' } },
+                        'float-c': { '0%, 100%': { transform: 'translate(0, 0) rotate(4deg)' }, '40%': { transform: 'translate(10px, 15px) rotate(7deg)' }, '80%': { transform: 'translate(-5px, 5px) rotate(2deg)' } },
+                        'float-d': { '0%, 100%': { transform: 'translate(0, 0) rotate(-10deg)' }, '50%': { transform: 'translate(-8px, -14px) rotate(-6deg)' } },
+                        'float-e': { '0%, 100%': { transform: 'translate(0, 0) rotate(6deg) scale(1)' }, '50%': { transform: 'translate(8px, -10px) rotate(9deg) scale(1.03)' } },
+                        'float-f': { '0%, 100%': { transform: 'translate(0, 0) rotate(-4deg)' }, '50%': { transform: 'translate(-12px, -8px) rotate(-1deg)' } },
+                        'spin-slow': { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } },
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="min-h-screen">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="grain"></div>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div
+                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow">
+                    <i data-lucide="coffee" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="text-lg font-extrabold tracking-tight font-outfit text-white">Tomoro Coffee<span
+                        class="text-orange-500">.</span></span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="#menu"
+                    class="hidden sm:flex items-center gap-2 px-4 py-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors rounded-full hover:bg-white/5">Menu</a>
+                <a href="#cara-order"
+                    class="hidden sm:flex items-center gap-2 px-4 py-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors rounded-full hover:bg-white/5">Cara
+                    Order</a>
+                <button onclick="toggleCart(true)"
+                    class="relative flex items-center gap-2 px-4 py-2.5 rounded-full glass hover:bg-white/[0.06] transition-all group">
+                    <i data-lucide="shopping-bag"
+                        class="w-4 h-4 text-neutral-300 group-hover:text-white transition-colors"></i>
+                    <span
+                        class="text-xs font-semibold text-neutral-300 group-hover:text-white transition-colors hidden sm:block">Keranjang</span>
+                    <span id="cart-badge"
+                        class="hidden min-w-[18px] h-[18px] items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white px-1">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=2000"
+                alt="" class="w-full h-full object-cover opacity-[0.05] scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-b from-[#050505]/90 via-[#050505]/50 to-[#050505]/90"></div>
+            <div
+                class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(249,115,22,0.1),transparent)] pointer-events-none">
+            </div>
+        </div>
+        <div
+            class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-orange-600/[0.04] blur-[120px] animate-pulse-slow pointer-events-none">
+        </div>
+
+        <!-- ☕ HERO ACCENT 1: Large cup — right -->
+        <div class="coffee-accent absolute -right-16 top-1/2 -translate-y-1/2 w-[400px] h-[540px] md:right-6 md:w-[340px] md:h-[460px] opacity-25 animate-float-a hidden md:block"
+            data-speed="0.03">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=600&h=800"
+                alt="" class="w-full h-full object-cover mask-blob" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]/60 mask-blob">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent mask-blob">
+            </div>
+        </div>
+
+        <!-- ☕ HERO ACCENT 2: Beans — bottom left -->
+        <div class="coffee-accent absolute left-6 bottom-28 w-[130px] h-[130px] opacity-[0.18] animate-float-c hidden lg:block"
+            data-speed="0.05">
+            <img src="https://images.unsplash.com/photo-1611070235610-2ee1a837c046?auto=format&fit=crop&q=80&w=300&h=300"
+                alt="" class="w-full h-full object-cover mask-soft rotate-[-15deg]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent mask-soft">
+            </div>
+        </div>
+
+        <!-- ☕ HERO ACCENT 3: Latte art — top left -->
+        <div class="coffee-accent absolute left-12 top-44 w-[110px] h-[110px] opacity-[0.12] animate-float-b hidden xl:block"
+            data-speed="0.07">
+            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=300&h=300"
+                alt="" class="w-full h-full object-cover mask-ellipse rotate-[12deg]" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505] mask-ellipse">
+            </div>
+        </div>
+
+        <!-- HERO CONTENT -->
+        <div class="relative z-10 max-w-4xl mx-auto px-5 text-center pt-24 pb-20">
+            <div class="animate-fade-up opacity-0 inline-flex items-center gap-2.5 px-5 py-2 rounded-full glass mb-10">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inset-0 rounded-full bg-orange-400 opacity-75"></span>
+                    <span class="relative rounded-full h-2 w-2 bg-orange-500"></span>
+                </span>
+                <span class="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">Jasa Order
+                    Resmi</span>
+            </div>
+            <div class="animate-fade-up opacity-0 delay-75 mb-6">
+                <div class="inline-flex items-baseline gap-1">
+                    <span
+                        class="text-[7rem] sm:text-[9rem] md:text-[11rem] lg:text-[13rem] font-black leading-[1] tracking-[-0.06em] font-outfit text-grad-fire drop-shadow-2xl py-4 px-3">50</span>
+                    <span
+                        class="text-[3rem] sm:text-[4rem] md:text-[5rem] font-black leading-[1] tracking-[-0.04em] font-outfit text-grad-fire py-4">%</span>
+                </div>
+            </div>
+            <h2
+                class="animate-fade-up opacity-0 delay-150 text-xl sm:text-2xl md:text-3xl font-bold tracking-tight mb-4 font-outfit">
+                <span class="text-grad">OFF semua menu</span>
+            </h2>
+            <p
+                class="animate-fade-up opacity-0 delay-200 text-base sm:text-lg text-neutral-500 max-w-xl mx-auto mb-4 leading-relaxed font-light">
+                Atau nikmati promo <span class="text-orange-400 font-semibold">Buy 1 Get 1</span> untuk menu pilihan.
+                Order Tomoro Coffee jadi lebih hemat tanpa ribet.
+            </p>
+            <p class="animate-fade-up opacity-0 delay-200 text-xs text-neutral-600 mb-12 tracking-wide">
+                Pick-Up Only & Gosend/Grab (Fee by User) </p>
+            <div
+                class="animate-fade-up opacity-0 delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#menu"
+                    class="group flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-sm btn-glow hover:scale-[1.03] transition-all duration-300">
+                    Lihat Menu & Harga
+                    <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"></i>
+                </a>
+                <a href="https://wa.me/<?= $WHATSAPP_NUMBER ?>?text=Halo%2C%20saya%20mau%20order%20Tomoro%20Coffee" target="_blank"
+                    class="group flex items-center gap-3 px-8 py-4 rounded-full glass text-neutral-300 font-semibold text-sm hover:text-white hover:bg-white/[0.06] transition-all duration-300">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Chat WhatsApp
+                </a>
+            </div>
+            <div
+                class="animate-fade-up opacity-0 delay-500 mt-16 flex items-center justify-center gap-8 text-neutral-600">
+                <div class="flex items-center gap-2"><i data-lucide="shield-check"
+                        class="w-4 h-4 text-orange-500/60"></i><span class="text-xs font-medium">Aman &
+                        Terpercaya</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-orange-500/60"></i><span
+                        class="text-xs font-medium">Proses Cepat</span></div>
+                <div class="hidden sm:flex items-center gap-2"><i data-lucide="star"
+                        class="w-4 h-4 text-orange-500/60"></i><span class="text-xs font-medium">500+ Order</span></div>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in opacity-0" style="animation-delay:1.5s">
+            <div class="w-5 h-8 rounded-full border border-white/10 flex justify-center pt-1.5">
+                <div class="w-1 h-2 rounded-full bg-white/30 animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ MARQUEE ═══ -->
+    <div class="relative overflow-hidden py-5 border-y border-white/[0.04] bg-[#050505]">
+        <div class="flex animate-marquee whitespace-nowrap">
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">DISKON 50%</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">BUY 1 GET 1</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">GRAB & GOSEND</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">TANPA MINIMUM
+                ORDER</span><span class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">DISKON 50%</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">BUY 1 GET 1</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">GRAB & GOSEND</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">TANPA MINIMUM
+                ORDER</span><span class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">DISKON 50%</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">BUY 1 GET 1</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">GRAB & GOSEND</span><span
+                class="mx-8 text-orange-500/30">✦</span>
+            <span class="mx-8 text-xs font-bold tracking-[0.2em] uppercase text-neutral-700">TANPA MINIMUM
+                ORDER</span><span class="mx-8 text-orange-500/30">✦</span>
+        </div>
+    </div>
+
+    <!-- ═══ CARA ORDER ═══ -->
+    <section id="cara-order" class="py-24 md:py-32 relative overflow-hidden">
+        <!-- ☕ ACCENT: Pouring coffee — left -->
+        <div class="coffee-accent absolute -left-20 top-10 w-[200px] h-[280px] opacity-[0.12] animate-float-d hidden lg:block reveal-left"
+            data-speed="0.04">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=400&h=500"
+                alt="" class="w-full h-full object-cover mask-organic rotate-[-8deg]" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent mask-organic">
+            </div>
+        </div>
+
+        <!-- ☕ ACCENT: Small cup — right -->
+        <div class="coffee-accent absolute -right-10 bottom-20 w-[150px] h-[150px] opacity-[0.1] animate-float-e hidden xl:block reveal-right"
+            data-speed="0.06">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=300&h=300"
+                alt="" class="w-full h-full object-cover mask-pill rotate-[6deg]" />
+            <div class="absolute inset-0 bg-gradient-to-l from-[#050505] via-transparent to-transparent mask-pill">
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-5 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <p class="text-[11px] font-semibold tracking-[0.25em] uppercase text-orange-500 mb-4">Cara Order</p>
+                <h2 class="text-3xl md:text-4xl font-black tracking-tight font-outfit text-grad">Semudah 3 langkah</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger-children" id="steps-grid">
+                <div class="glass rounded-2xl p-8 text-center card-row relative group">
+                    <div class="absolute top-6 right-6 text-5xl font-black text-white/[0.03] font-outfit">01</div>
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500/20 transition-colors">
+                        <i data-lucide="mouse-pointer-click" class="w-5 h-5 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight mb-2">Pilih Menu</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Pilih minuman favorit dan lihat harga diskon
+                        spesial di bawah.</p>
+                </div>
+                <div class="glass rounded-2xl p-8 text-center card-row relative group">
+                    <div class="absolute top-6 right-6 text-5xl font-black text-white/[0.03] font-outfit">02</div>
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500/20 transition-colors">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight mb-2">Chat Kami</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Kirim order via WhatsApp. Kami konfirmasi total
+                        & estimasi sampai.</p>
+                </div>
+                <div class="glass rounded-2xl p-8 text-center card-row relative group">
+                    <div class="absolute top-6 right-6 text-5xl font-black text-white/[0.03] font-outfit">03</div>
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500/20 transition-colors">
+                        <i data-lucide="package-check" class="w-5 h-5 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight mb-2">Terima Pesanan</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Minuman Siap Untuk Di Pickup Dengan Menunjukkan
+                        PIN ke Kasir,
+                        Grab/GoSend (FEE diTanggung User) </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-5 reveal">
+        <div class="line-glow"></div>
+    </div>
+
+    <!-- ═══ MENU CATALOG ═══ -->
+    <section id="menu" class="py-24 md:py-32 relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-orange-600/[0.03] blur-[150px] pointer-events-none">
+        </div>
+
+        <!-- ☕ ACCENT: Coffee bag — right of menu -->
+        <div class="coffee-accent absolute -right-16 top-32 w-[180px] h-[240px] opacity-[0.1] animate-float-f hidden lg:block reveal-right"
+            data-speed="0.035">
+            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=400&h=500"
+                alt="" class="w-full h-full object-cover mask-blob rotate-[5deg]" />
+            <div class="absolute inset-0 bg-gradient-to-l from-[#050505] via-transparent to-transparent mask-blob">
+            </div>
+        </div>
+
+        <!-- ☕ ACCENT: Espresso shot — left mid menu -->
+        <div class="coffee-accent absolute -left-12 top-1/2 w-[100px] h-[100px] opacity-[0.1] animate-float-a hidden xl:block reveal-left"
+            data-speed="0.05">
+            <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&q=80&w=250&h=250"
+                alt="" class="w-full h-full object-cover mask-ellipse rotate-[-5deg]" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505] mask-ellipse">
+            </div>
+        </div>
+
+        <!-- ☕ ACCENT: Croissant — bottom right -->
+        <div class="coffee-accent absolute right-4 bottom-40 w-[120px] h-[120px] opacity-[0.08] animate-float-c hidden xl:block reveal-scale"
+            data-speed="0.045">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038024a?auto=format&fit=crop&q=80&w=300&h=300"
+                alt="" class="w-full h-full object-cover mask-soft rotate-[10deg]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent mask-soft">
+            </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-5 relative z-10">
+            <div class="text-center mb-6 reveal">
+                <p class="text-[11px] font-semibold tracking-[0.25em] uppercase text-orange-500 mb-4">Menu</p>
+                <h2 class="text-3xl md:text-4xl font-black tracking-tight font-outfit text-grad mb-3">Harga spesial hari
+                    ini</h2>
+                <p class="text-neutral-500 text-sm max-w-md mx-auto">Semua harga sudah termasuk diskon 50%. Bandingkan
+                    dengan harga di aplikasi.</p>
+            </div>
+
+            <div id="category-filters" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-14 reveal">
+            </div>
+
+            <div id="menu-sections"></div>
+        </div>
+    </section>
+
+    <!-- ═══ CTA FINAL ═══ -->
+    <section class="py-24 md:py-32 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(249,115,22,0.06),transparent)]">
+        </div>
+
+        <!-- ☕ ACCENT: Big cup behind CTA -->
+        <div class="coffee-accent absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-[0.07] animate-float-e reveal-scale"
+            data-speed="0.015">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600&h=600"
+                alt="" class="w-full h-full object-cover mask-soft" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-[#050505] mask-soft"></div>
+        </div>
+
+        <!-- ☕ ACCENT: Beans bottom left -->
+        <div class="coffee-accent absolute left-8 bottom-16 w-[110px] h-[110px] opacity-[0.1] animate-float-d hidden md:block reveal-left"
+            data-speed="0.055">
+            <img src="https://images.unsplash.com/photo-1611070235610-2ee1a837c046?auto=format&fit=crop&q=80&w=250&h=250"
+                alt="" class="w-full h-full object-cover mask-organic rotate-[8deg]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent mask-organic">
+            </div>
+        </div>
+
+        <!-- ☕ ACCENT: Small latte top right -->
+        <div class="coffee-accent absolute right-8 top-16 w-[90px] h-[90px] opacity-[0.09] animate-float-b hidden md:block reveal-right"
+            data-speed="0.065">
+            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=250&h=250"
+                alt="" class="w-full h-full object-cover mask-ellipse rotate-[-6deg]" />
+            <div class="absolute inset-0 bg-gradient-to-l from-[#050505] via-transparent to-transparent mask-ellipse">
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto px-5 text-center relative z-10">
+            <div class="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass mb-8">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-orange-500"></i>
+                <span class="text-[11px] font-semibold tracking-wider uppercase text-neutral-400">Promo Terbatas</span>
+            </div>
+            <h2 class="reveal text-3xl md:text-5xl font-black tracking-tight font-outfit mb-5"
+                style="transition-delay:100ms">
+                <span class="text-grad">Jangan bayar </span><span class="text-grad-fire">full price</span>
+            </h2>
+            <p class="reveal text-neutral-500 text-base mb-10 max-w-md mx-auto leading-relaxed"
+                style="transition-delay:200ms">Kalau kamu bisa dapat Tomoro Coffee setengah harga, kenapa harus bayar
+                penuh? Order sekarang sebelum promo berakhir.</p>
+            <div class="reveal" style="transition-delay:300ms">
+                <a href="https://wa.me/<?= $WHATSAPP_NUMBER ?>?text=Halo%2C%20saya%20mau%20order%20Tomoro%20Coffee%20dengan%20promo%20diskon"
+                    target="_blank"
+                    class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-sm btn-glow hover:scale-[1.03] transition-all duration-300">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Order Sekarang via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="border-t border-white/[0.04] py-10 px-5 relative">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-6 h-6 rounded-md bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+                    <i data-lucide="coffee" class="w-3 h-3 text-white"></i>
+                </div>
+                <span class="text-sm font-bold tracking-tight font-outfit text-neutral-500">tomoro<span
+                        class="text-orange-500/60">.</span></span>
+            </div>
+            <p class="text-xs text-neutral-700">&copy; Kurumi — Tomoro Coffee. Jasa order Hemat Hingga 50%..</p>
+        </div>
+    </footer>
+
+    <!-- ═══ CART DRAWER ═══ -->
+    <div id="cart-overlay"
+        class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+        onclick="toggleCart(false)"></div>
+    <div id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-full sm:w-[380px] bg-[rgba(5,5,5,0.95)] backdrop-blur-3xl border-l border-orange-500/20 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] z-[101] flex flex-col translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <div class="flex items-center justify-between px-6 py-5 border-b border-white/[0.04]">
+            <h3 class="text-base font-bold tracking-tight">Keranjang</h3>
+            <button onclick="toggleCart(false)"
+                class="p-2 rounded-full hover:bg-white/5 text-neutral-500 hover:text-white transition-colors"><i
+                    data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-4 no-scrollbar"></div>
+        <div id="cart-footer" class="hidden px-6 py-5 border-t border-white/[0.04] bg-black/40 backdrop-blur-md">
+            <div class="flex justify-between items-center mb-5">
+                <span class="text-neutral-500 text-sm">Total</span>
+                <span id="cart-total" class="text-xl font-black tracking-tight font-outfit text-grad-fire">Rp0</span>
+            </div>
+            <button onclick="checkoutWhatsApp()"
+                class="w-full py-3.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-sm btn-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                Checkout WhatsApp <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ TOAST ═══ -->
+    <div id="toast"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] px-5 py-3 rounded-full glass-strong text-sm font-medium text-white flex items-center gap-2 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+        <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+        <span id="toast-text">Ditambahkan</span>
+    </div>
+
+
+    <script>
+    // Mengambil data dari PHP untuk digunakan di script.js
+    let MENU_SECTIONS = <?php echo json_encode($MENU_SECTIONS); ?>;
+    const WHATSAPP_NUMBER = "<?php echo $WHATSAPP_NUMBER; ?>";
+</script>
+<script src="script.js"></script>
+</body>
+
+</html>
