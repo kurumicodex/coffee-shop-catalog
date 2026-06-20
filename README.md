@@ -4,14 +4,21 @@ A very lightweight, fast, and modern single-page catalog and ordering system for
 
 ### 📸 App Previews
 
-**1. Landing View**  
-<img src="https://kurumi.id/uploads/krm_1781934164_9b9caaa83e.png" alt="Catalog View" width="700"/>
+**1. Landing View**
 
-**2. Catalog & Menu View**  
-<img src="https://kurumi.id/uploads/krm_1781934024_d4a0e73969.png" alt="Catalog View" width="700"/>
+<kbd>
+  <img src="https://kurumi.id/uploads/krm_1781934164_9b9caaa83e.png" alt="Landing View" width="700"/>
+</kbd>
+
+<br><br>
+**2. Catalog & Menu View**
+
+<kbd>
+  <img src="https://kurumi.id/uploads/krm_1781934024_d4a0e73969.png" alt="Catalog View" width="700"/>
+</kbd>
 
 ## 🚀 Key Features
-- **Modern & Responsive Design**: Utilizes Tailwind CSS with elegant visual effects (Glassmorphism, scroll animations, glowing particles)a.
+- **Modern & Responsive Design**: Utilizes Tailwind CSS with elegant visual effects (Glassmorphism, scroll animations, glowing particles).
 - **Dynamic Catalog**: Product and category data are stored in a single `config.js` file, making it extremely easy for beginners to manage.
 - **Instant Cart System**: Users can add, remove, and view total orders before checking out directly on the same page.
 - **WhatsApp Checkout**: The order list is automatically calculated and sent to the admin's WhatsApp number in a neatly formatted text.
