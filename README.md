@@ -1,50 +1,47 @@
 # Coffee Shop Catalog (WhatsApp Order System)
 
-Sebuah sistem pemesanan katalog toko (Coffee Shop) satu halaman (Single Page Application) yang sangat ringan, cepat, dan modern. Proyek ini dibangun menggunakan **PHP**, **Tailwind CSS**, dan **Vanilla JavaScript**. Terintegrasi langsung dengan WhatsApp untuk sistem pemesanan (*checkout*).
+A very lightweight, fast, and modern single-page catalog and ordering system for Coffee Shops. This project is built purely using **HTML5**, **Tailwind CSS**, and **Vanilla JavaScript**. It integrates directly with WhatsApp for the checkout process.
 
 <p align="center">
-  <img src="demo.png" alt="Demo Aplikasi" width="800"/>
+  <img src="demo-landing.png" alt="Landing View" width="49%"/>
+  &nbsp;
+  <img src="demo-catalog.png" alt="Catalog View" width="49%"/>
 </p>
 
-## 🚀 Fitur Utama
-- **Desain Modern & Responsif**: Menggunakan Tailwind CSS dengan efek visual elegan (Glassmorphism, animasi *scroll*, partikel).
-- **Katalog Dinamis Tanpa Database**: Data produk dan kategori cukup disimpan di satu file `config.php` yang sangat mudah diatur oleh pemula.
-- **Sistem Keranjang (Cart) Instan**: Pengguna dapat menambah, mengurangi, dan melihat total pesanan sebelum *checkout* langsung di halaman yang sama.
-- **Checkout via WhatsApp**: Daftar pesanan dihitung otomatis dan dikirim ke nomor WhatsApp admin dalam format teks yang rapi.
-- **Mendukung Promo Khusus**: Label visual otomatis untuk produk diskon 50% atau promo Buy 1 Get 1 (BOGO).
+## 🚀 Key Features
+- **Modern & Responsive Design**: Utilizes Tailwind CSS with elegant visual effects (Glassmorphism, scroll animations, glowing particles).
+- **Dynamic Catalog**: Product and category data are stored in a single `config.js` file, making it extremely easy for beginners to manage.
+- **Instant Cart System**: Users can add, remove, and view total orders before checking out directly on the same page.
+- **WhatsApp Checkout**: The order list is automatically calculated and sent to the admin's WhatsApp number in a neatly formatted text.
+- **Promo Support**: Automatic visual labels for 50% discount products or Buy 1 Get 1 (BOGO) promos.
 
-## 🛠️ Teknologi yang Digunakan
-- **Backend**: PHP (Hanya untuk _config_ dan routing variabel data)
+## 🛠️ Tech Stack
 - **Frontend**: HTML5, CSS3, Vanilla JS
 - **Styling**: Tailwind CSS (via CDN)
-- **Ikon**: Lucide Icons (via CDN)
+- **Icons**: Lucide Icons (via CDN)
 
-## 📦 Cara Instalasi & Penggunaan
+## 📦 Installation & Usage
 
 1. **Download / Clone Repository**
-   Unduh semua file ke dalam komputer atau server *hosting* Anda (misalnya cPanel).
+   Download all files to your computer or host them on your preferred server (e.g., Vercel, Netlify, or GitHub Pages).
 
-2. **Jalankan Server Lokal (Untuk pengembangan)**
-   Jika Anda sudah menginstal PHP di komputer, buka terminal di folder proyek dan jalankan:
-   ```bash
-   php -S localhost:5000
-   ```
-   Atau letakkan di dalam folder `htdocs` (jika menggunakan XAMPP) / `public_html` (jika di cPanel).
+2. **Run the Application**
+   Since this application is 100% static, simply double-click the `index.html` file to open it in your browser! No backend server installation is required.
 
-3. **Konfigurasi Nomor WhatsApp Admin**
-   Buka file `config.php` menggunakan _text editor_. Ubah nilai variabel `$WHATSAPP_NUMBER`:
-   ```php
-   $WHATSAPP_NUMBER = "628xxxxxxxxxx"; // Gunakan format kode negara (62 untuk Indonesia)
+3. **Configure Admin WhatsApp Number**
+   Open the `config.js` file using a text editor. Change the value of the `WHATSAPP_NUMBER` variable:
+   ```javascript
+   const WHATSAPP_NUMBER = "628xxxxxxxxxx"; // Use your country code format (e.g., 62 for Indonesia)
    ```
 
-4. **Menambah dan Mengubah Produk**
-   Semua menu dan produk juga diatur di dalam `config.php` pada variabel `$MENU_SECTIONS`. Cukup ikuti instruksi yang sudah tertulis di dalam file tersebut.
+4. **Adding and Editing Products**
+   All menus and products are configured in `config.js` under the `MENU_SECTIONS` variable. Simply follow the instructions provided within the file.
 
-## 📁 Struktur File
-- `index.php` — Tulang punggung UI halaman utama dan pemuat konfigurasi.
-- `config.php` — Pusat pengaturan (nomor WA admin dan daftar katalog).
-- `style.css` — File *styling* tambahan yang dipisahkan untuk menjaga UI tetap bersih.
-- `script.js` — Logika *frontend* (keranjang belanja, filter kategori, dan fungsi *checkout*).
+## 📁 File Structure
+- `index.html` — The main UI backbone and entry point.
+- `config.js` — The central configuration center (Admin WA number and catalog list).
+- `style.css` — Custom styling to keep the UI structure clean.
+- `script.js` — Frontend logic (shopping cart, category filters, and checkout functions).
 
-## 📄 Lisensi
-Proyek ini bersifat *Open Source* dan dapat digunakan serta dimodifikasi secara bebas.
+## 📄 License
+This project is *Open Source* and free to use and modify.
